@@ -1,0 +1,30 @@
+/* header * { border: 1px red dashed; } */
+
+header {
+  background-color: #f2d98c;
+  background-image: url("https://www.transparenttextures.com/patterns/connected.png");
+  height: 400px;
+  padding-top: 120px;
+  width: 100%;
+  box-sizing: unset;
+}
+
+header > div {
+  position: relative;
+  text-align: center;
+}
+
+.profile img {
+  position: relative;
+}
+
+.profile h1 {
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+  font-weight: 700;
+}
+
+.profile span {
+  font-weight: 300;
+}
