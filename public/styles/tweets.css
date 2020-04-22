@@ -6,6 +6,7 @@ section.tweets-container {
 
 article.tweet {
   border: 3px gray solid;
+  border-radius: 5px;
   background: transparent;
   padding: 1em .5em;
 }
@@ -27,10 +28,10 @@ article.tweet:hover {
 }
 
 article.tweet:hover header span {
-  color: black;
+  color: lightslategray;
 }
 
-.tweet header span.material-icons{
+article.tweet header span.material-icons{
   color: black;
   padding: 0em .75em;
   vertical-align: -15%;
