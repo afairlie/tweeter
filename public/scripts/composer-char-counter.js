@@ -1,6 +1,6 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
-  $('#tweet-text').on('keyup', function(){
+  $('#tweet-text').on('keyup', function () {
     const max = 140;
     let $charCount = $(this).val().length;
 
@@ -9,11 +9,11 @@ $(document).ready(function() {
     $output.text(max - $charCount);
 
     if ($charCount > max) {
-      $output.css({'color': 'red'})
+      $('.counter').addClass('char-limit')
     } else {
-      $output.css({'color': 'black'})
+      $('.counter').removeClass('char-limit')
     }
-
   });
 
 });
+

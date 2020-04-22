@@ -4,51 +4,72 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-const tweet = {
-  "user": {
-    "name": "Newton",
-    "avatars": "https://i.imgur.com/73hZDYK.png",
-      "handle": "@SirIsaac"
-    },
-  "content": {
-      "text": "If I have seen further it is by standing on the shoulders of giants"
-    },
-  "created_at": 1461116232227
-}
+ // format tweet with HTML
+const createTweetElement = (tweet) => {
+  const {name, avatars, handle} = tweet.user
+  const text = tweet.content.text;
+  const created_at = tweet.created_at;
 
- // createTweetElement that takes in a tweet object and is responsible for returning a tweet <article> element containing the entire HTML structure of the tweet.
-
- const createTweetElement = (tweet) => {
-   const {name, avatars, handle} = tweet.user
-   const {text} = tweet.content
-   const {created_at} = tweet
+  //  const $tweet = $('<article>')
   return (`
-  <article class='tweet'>
-          <header>
-            <div><img src='${avatars}'>${name}</div>
-            <div><span>${handle}</span></div>
-          </header>
-          <p>
-            ${text}
-          </p>
-          <footer>
-            <div>${created_at} "days"</div>
-            <div>
-              <a href='#'><span class="material-icons">
-                flag
-                </span></a>
-              <a href='#'><span class="material-icons">
-                repeat
-                </span></a>
-              <a href='#'><span class="material-icons">
-                favorite
-                </span></a>
-            </div>
-          </footer>
-        </article>
+    <article class='tweet'>
+      <header>
+        <div><img src='${avatars}'>${name}</div>
+        <div><span>${handle}</span></div>
+      </header>
+      <p>
+        ${text}
+      </p>
+      <footer>
+        <div>${created_at} "days"</div>
+        <div>
+          <a href='#'><span class="material-icons">
+            flag
+            </span></a>
+          <a href='#'><span class="material-icons">
+            repeat
+            </span></a>
+          <a href='#'><span class="material-icons">
+            favorite
+            </span></a>
+        </div>
+      </footer>
+    </article>
   `)
 }
 
- $('document').ready(function(){
-   $('.tweets-container').append(createTweetElement(tweet));
+// ajax response param, loop, format , & append
+const renderTweets = (tweets) => {
+  const markupArray = [];
+
+  for (const tweet of tweets) {
+    markupArray.push(createTweetElement(tweet))
+  }
+
+  // return markupArray.join('');
+  $('.tweets-container').append(markupArray.join(''));
+}
+
+// when document ready, fetch tweets from server via ajax, append to DOM
+$('document').ready(function(){
+  $.ajax({
+    url: 'http://localhost:8080/tweets',
+    type: 'GET',
+    dataType: 'JSON'
+  })
+  .then((response) => {
+    // populat tweets on DOM in .container in HTML
+    renderTweets(response);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+
+    // jQuery, we can use event handlers to prevent the existing form submission, and instead, submit the form data using AJAX.
+    // $.ajax({
+    //   url: '/tweets',
+    //   type: 'POST',
+    //   dataType: 'JSON'
+    // })
+
  })

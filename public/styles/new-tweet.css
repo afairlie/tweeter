@@ -33,3 +33,7 @@
   min-height: 34px;
   height: fit-content;
 }
+
+.char-limit {
+  color: red;
+}
