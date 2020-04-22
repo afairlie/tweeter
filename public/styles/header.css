@@ -1,15 +1,15 @@
 /* header * { border: 1px red dashed; } */
 
-header {
-  background-color: #f2d98c;
+header.profile {
+  background-color: lightskyblue;
   background-image: url("https://www.transparenttextures.com/patterns/connected.png");
-  height: 400px;
+  height: 375px;
   padding-top: 120px;
   width: 100%;
   box-sizing: unset;
 }
 
-header > div {
+header.profile > div {
   position: relative;
   text-align: center;
 }
