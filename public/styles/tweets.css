@@ -31,10 +31,11 @@ article.tweet:hover header span {
   color: lightslategray;
 }
 
-article.tweet header span.material-icons{
-  color: black;
+article.tweet header img{
+  /* color: black; */
   padding: 0em .75em;
-  vertical-align: -15%;
+  max-height: 1em;
+  vertical-align: -12%;
 }
 
 .tweet p {
