@@ -4,11 +4,17 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
- // format tweet with HTML
+// format tweet with HTML
 const createTweetElement = (tweet) => {
-  const {name, avatars, handle} = tweet.user
+  const {name, avatars, handle} = tweet.user;
   const text = tweet.content.text;
-  const created_at = tweet.created_at;
+  const created_at = Math.floor((Date.now() - tweet.created_at) / (1000 * 60));
+
+  const escape =  function(str) {
+    let div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  };
 
   //  const $tweet = $('<article>')
   return (`
@@ -18,10 +24,10 @@ const createTweetElement = (tweet) => {
         <div><span>${handle}</span></div>
       </header>
       <p>
-        ${text}
+        ${escape(text)}
       </p>
       <footer>
-        <div>${created_at} "days"</div>
+        <div>${created_at} mins</div>
         <div>
           <a href='#'><span class="material-icons">
             flag
@@ -35,41 +41,56 @@ const createTweetElement = (tweet) => {
         </div>
       </footer>
     </article>
-  `)
-}
+  `);
+};
 
 // ajax response param, loop, format , & append
 const renderTweets = (tweets) => {
-  const markupArray = [];
-
   for (const tweet of tweets) {
-    markupArray.push(createTweetElement(tweet))
+    $('.tweets-container').prepend(createTweetElement(tweet));
   }
+};
 
-  // return markupArray.join('');
-  $('.tweets-container').append(markupArray.join(''));
-}
+const renderLastTweet = (tweets) => {
+  const tweet = tweets.pop();
+  $('.tweets-container').prepend(createTweetElement(tweet));
+};
+
+const loadTweets = (callback) => {
+  $.ajax({
+    url: '/tweets',
+    type: 'GET',
+    dataType: 'JSON',
+    success: (response) => callback(response)
+  });
+};
 
 // when document ready, fetch tweets from server via ajax, append to DOM
-$('document').ready(function(){
-  $.ajax({
-    url: 'http://localhost:8080/tweets',
-    type: 'GET',
-    dataType: 'JSON'
-  })
-  .then((response) => {
-    // populat tweets on DOM in .container in HTML
-    renderTweets(response);
-  })
-  .catch((error) => {
-    console.log(error);
-  })
+$('document').ready(function() {
 
-    // jQuery, we can use event handlers to prevent the existing form submission, and instead, submit the form data using AJAX.
-    // $.ajax({
-    //   url: '/tweets',
-    //   type: 'POST',
-    //   dataType: 'JSON'
-    // })
+  loadTweets(renderTweets);
 
- })
+  const $newTweet = $('.new-tweet form').on('submit', function(event) {
+    
+    const count = $newTweet.find('.counter').val();
+    const text = $newTweet.find('#tweet-text').val();
+
+    if (count < 0) {
+      alert("too many characters!");
+      return false;
+    } else if (text === "" || text === null) {
+      alert('text is empty :(');
+      return false;
+    } else {
+      $.ajax({
+        url: '/tweets',
+        type: 'POST',
+        data: $newTweet.serialize(),
+        success: () => loadTweets(renderLastTweet)
+      });
+    }
+
+    event.preventDefault();
+  });
+
+});
