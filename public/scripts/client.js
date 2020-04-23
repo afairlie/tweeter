@@ -65,6 +65,19 @@ const loadTweets = (callback) => {
   });
 };
 
+const displayError = (message) => {
+  $('.error-container').append("<span class='material-icons'>error_outline</span>")
+  $('.error-container').append(`<p class='error-message'>${message}</p>`)
+  $('.error-container').append("<span class='material-icons'>error_outline</span>")
+  $('.error-container').addClass('display-error');
+}
+
+const clearError = () => {
+  if ($('.error-container').hasClass('display-error')) {
+    $('.error-container').empty().removeClass('display-error');
+  }
+}
+
 // when document ready, fetch tweets from server via ajax, append to DOM
 $('document').ready(function() {
 
@@ -76,12 +89,15 @@ $('document').ready(function() {
     const text = $newTweet.find('#tweet-text').val();
 
     if (count < 0) {
-      alert("too many characters!");
+      clearError();
+      displayError("You've got too many characters, might we suggest a quick edit?");
       return false;
     } else if (text === "" || text === null) {
-      alert('text is empty :(');
+      clearError();
+      displayError("Your tweet is empty. Tell us what's on your mind!");
       return false;
     } else {
+      clearError();
       $.ajax({
         url: '/tweets',
         type: 'POST',

@@ -34,6 +34,22 @@
   height: fit-content;
 }
 
+/* ERROR STYLING */
+
 .char-limit {
   color: red;
+}
+
+.display-error {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: fit-content;
+  border: 4px red solid;
+  color: red;
+  margin-bottom: 1.5em;
+}
+
+.display-error .material-icons {
+  font-size: 2em;
 }
