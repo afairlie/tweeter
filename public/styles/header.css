@@ -1,27 +1,31 @@
 /* header * { border: 1px red dashed; } */
 
-header.profile {
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   background-color: lightskyblue;
   background-image: url("https://www.transparenttextures.com/patterns/connected.png");
-  height: 375px;
-  padding-top: 120px;
-  width: 100%;
-  box-sizing: unset;
+  height: 450px;
+  padding-top: 100px;
+  /* width: 100%; */
+  /* box-sizing: unset; */
 }
 
-header.profile > div {
+/* header.profile > div {
   position: relative;
   text-align: center;
-}
+} */
 
 .profile img {
-  position: relative;
+  align-self: center;
 }
 
 .profile h1 {
-  position: relative;
-  margin: 0 auto;
-  text-align: center;
+  /* position: relative;*/
+  margin: 0;
+  align-self: center;
   font-weight: 700;
 }
 
