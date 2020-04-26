@@ -69,16 +69,17 @@ $('document').ready(function() {
 
   loadTweets(renderTweets);
 
-  $('.compose').on('click', function(){
+  $('.compose').on('click', function() {
     $('.new-tweet').slideToggle(600);
     $('#tweet-text').focus();
-  })
+  });
 
-  const $newTweet = $('.new-tweet form').on('submit', function(event) {
+  const $newTweet = $('.new-tweet form');
+  $newTweet.on('submit', function(event) {
     const count = $newTweet.find('.counter').val();
     const text = $newTweet.find('#tweet-text').val();
 
-    $('.new-tweet button').blur()
+    $('.new-tweet button').blur();
     $('#tweet-text').focus();
 
     if (count < 0) {
@@ -90,13 +91,13 @@ $('document').ready(function() {
       $('.error-message p').text("Your tweet is empty. Tell us what's on your mind!");
       $('.error-container').slideToggle(600);
     } else {
-      $('.error-container:visible').slideToggle();
       $.ajax({
         url: '/tweets',
         type: 'POST',
         data: $newTweet.serialize(),
         success: () => loadTweets(renderLastTweet)
       });
+      $('.error-container:visible').slideToggle();
       $('#tweet-text').val('');
       $('.counter').val(140);
     }

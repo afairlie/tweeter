@@ -49,8 +49,8 @@
 
   <!-- header -->
   <header class='profile'>
-      <img src="/images/profile-hex.png">
-      <h1>Ariane <span>Fairlie</span></h1>
+    <img src="/images/profile-hex.png">
+    <h1>Ariane <span>Fairlie</span></h1>
   </header>
 
   <!-- Page-specific (main) content here -->
@@ -60,17 +60,17 @@
         <span class='material-icons'>error_outline</span>
         <p></p>
         <span class='material-icons'>error_outline</span>
-    </div>   
+      </div>   
     </section>
     <section hidden class="new-tweet">
-        <form method='POST' action='/tweets/'>
+      <form method='POST' action='/tweets/'>
           <label for="tweet-text">What are you humming about?</label>
           <textarea name="text" id="tweet-text"></textarea>
-          <footer>
-            <button type="submit">Tweet</button>
-            <output name="counter" class="counter" for="tweet-text">140</output>
-          </footer>
-        </form>
+        <footer>
+          <button type="submit">Tweet</button>
+          <output name="counter" class="counter" for="tweet-text">140</output>
+        </footer>
+      </form>
     </section>
     <section class='tweets-container'></section>
   </main>
