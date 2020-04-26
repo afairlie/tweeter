@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/styles/header.css" type="text/css" />
   <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
   <link rel="stylesheet" href="/styles/tweets.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/media-min-1024.css" type="text/css" />
+  <link rel="stylesheet" media="screen and (min-width: 1024px)" href="/styles/tablet-or-mobile.css" type="text/css" />
 
   <!-- External JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -40,10 +40,11 @@
     <div>
       <h1 class='logo'>tweeter</h1>
     </div>
-    <div>
-      <p class='newTweet'><b>Write</b> a new tweet</p>
-      <h2 class='arrow'>&#8964;</h2>
-    </div>
+    <button class='compose' type='button'>
+      <div><b>Write</b> a new tweet</div>
+      <div class='arrow'>&#8964;</div>
+      <div class='arrow'>&#8964;</div>
+    </button>
   </nav>
 
   <!-- header -->
@@ -54,7 +55,7 @@
 
   <!-- Page-specific (main) content here -->
   <main class="container">
-    <section class="new-tweet">
+    <section hidden class="new-tweet">
       <div class='error-container'></div>
         <form method='POST' action='/tweets/'>
           <label for="tweet-text">What are you humming about?</label>
@@ -64,8 +65,8 @@
             <output name="counter" class="counter" for="tweet-text">140</output>
           </footer>
         </form>
-      <section class='tweets-container'></section>
     </section>
+    <section class='tweets-container'></section>
   </main>
 </body>
 

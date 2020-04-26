@@ -16,7 +16,6 @@ const createTweetElement = (tweet) => {
     return div.innerHTML;
   };
 
-  //  const $tweet = $('<article>')
   return (`
     <article class='tweet'>
       <header>
@@ -44,7 +43,6 @@ const createTweetElement = (tweet) => {
   `);
 };
 
-// ajax response param, loop, format , & append
 const renderTweets = (tweets) => {
   for (const tweet of tweets) {
     $('.tweets-container').prepend(createTweetElement(tweet));
@@ -83,8 +81,14 @@ $('document').ready(function() {
 
   loadTweets(renderTweets);
 
+  $('.compose').on('click', function(){
+    $('.new-tweet').slideToggle(600);
+    $('#tweet-text').focus();
+  })
+
   const $newTweet = $('.new-tweet form').on('submit', function(event) {
-    
+    $('.new-tweet button').blur()
+    $('#tweet-text').focus();
     const count = $newTweet.find('.counter').val();
     const text = $newTweet.find('#tweet-text').val();
 

@@ -1,0 +1,25 @@
+body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+nav {
+  background-color: #4056A1;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 100px 0 0;
+  padding: 2em 2em 2em;
+  flex-grow: 1;
+}
+
+.profile {
+  margin: 150px 5rem 0px;
+  padding: 0px;
+  min-width: 20rem;
+  flex-grow: 1;
+}
