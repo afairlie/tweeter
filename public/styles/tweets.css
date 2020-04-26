@@ -22,12 +22,8 @@ article.tweet:hover {
 }
 
 .tweet header span {
-  color: transparent;
-  padding: 0em .75em;
-}
-
-article.tweet:hover header span {
   color: lightslategray;
+  padding: 0em .75em;
 }
 
 article.tweet header img{
@@ -54,6 +50,11 @@ article.tweet header img{
 }
 
 .tweet footer .material-icons {
+  color: transparent;
+  font-size: small;
+}
+
+.tweet:hover footer .material-icons {
   color: #4056A1;
   font-size: small;
 }
