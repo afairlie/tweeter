@@ -104,8 +104,8 @@ $('document').ready(function() {
         data: $newTweet.serialize(),
         success: () => loadTweets(renderLastTweet)
       });
+      $('#tweet-text').val('');
     }
-
     event.preventDefault();
   });
 
