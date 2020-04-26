@@ -55,8 +55,14 @@
 
   <!-- Page-specific (main) content here -->
   <main class="container">
+    <section hidden class='error-container'>
+      <div class='error-message'>
+        <span class='material-icons'>error_outline</span>
+        <p></p>
+        <span class='material-icons'>error_outline</span>
+    </div>   
+    </section>
     <section hidden class="new-tweet">
-      <div class='error-container'></div>
         <form method='POST' action='/tweets/'>
           <label for="tweet-text">What are you humming about?</label>
           <textarea name="text" id="tweet-text"></textarea>

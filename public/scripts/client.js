@@ -43,6 +43,17 @@ const createTweetElement = (tweet) => {
   `);
 };
 
+// get tweets from "db"
+const loadTweets = (callback) => {
+  $.ajax({
+    url: '/tweets',
+    type: 'GET',
+    dataType: 'JSON',
+    success: (response) => callback(response)
+  });
+};
+
+// render tweets to DOM
 const renderTweets = (tweets) => {
   for (const tweet of tweets) {
     $('.tweets-container').prepend(createTweetElement(tweet));
@@ -54,29 +65,6 @@ const renderLastTweet = (tweets) => {
   $('.tweets-container').prepend(createTweetElement(tweet));
 };
 
-const loadTweets = (callback) => {
-  $.ajax({
-    url: '/tweets',
-    type: 'GET',
-    dataType: 'JSON',
-    success: (response) => callback(response)
-  });
-};
-
-const displayError = (message) => {
-  $('.error-container').append("<span class='material-icons'>error_outline</span>")
-  $('.error-container').append(`<p class='error-message'>${message}</p>`)
-  $('.error-container').append("<span class='material-icons'>error_outline</span>")
-  $('.error-container').addClass('display-error');
-}
-
-const clearError = () => {
-  if ($('.error-container').hasClass('display-error')) {
-    $('.error-container').empty().removeClass('display-error');
-  }
-}
-
-// when document ready, fetch tweets from server via ajax, append to DOM
 $('document').ready(function() {
 
   loadTweets(renderTweets);
@@ -87,21 +75,22 @@ $('document').ready(function() {
   })
 
   const $newTweet = $('.new-tweet form').on('submit', function(event) {
-    $('.new-tweet button').blur()
-    $('#tweet-text').focus();
     const count = $newTweet.find('.counter').val();
     const text = $newTweet.find('#tweet-text').val();
 
+    $('.new-tweet button').blur()
+    $('#tweet-text').focus();
+
     if (count < 0) {
-      clearError();
-      displayError("You've got too many characters, might we suggest a quick edit?");
-      return false;
+      $('.error-container:visible').slideToggle();
+      $('.error-message p').text("You've got too many characters, might we suggest a quick edit?");
+      $('.error-container').slideToggle(600);
     } else if (text === "" || text === null) {
-      clearError();
-      displayError("Your tweet is empty. Tell us what's on your mind!");
-      return false;
+      $('.error-container:visible').slideToggle();
+      $('.error-message p').text("Your tweet is empty. Tell us what's on your mind!");
+      $('.error-container').slideToggle(600);
     } else {
-      clearError();
+      $('.error-container:visible').slideToggle();
       $.ajax({
         url: '/tweets',
         type: 'POST',
@@ -109,6 +98,7 @@ $('document').ready(function() {
         success: () => loadTweets(renderLastTweet)
       });
       $('#tweet-text').val('');
+      $('.counter').val(140);
     }
     event.preventDefault();
   });
